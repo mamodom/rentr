@@ -1,14 +1,4 @@
-import IMarker from "./IMarker";
-import IRentalProperty from "./IRentalProperty";
-import { Collection, IEntity } from "fireorm";
-
-@Collection()
-export default class RentalProperty
-  implements IRentalProperty, IMarker, IEntity {
-  id: string;
-  RentalObjectId?: number;
-  Latitude?: number;
-  Longitude?: number;
+export default interface IRentalProperty {
   Id?: number;
   MemberId?: number;
   OldDbObjectId?: number;
