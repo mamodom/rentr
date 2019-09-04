@@ -1,4 +1,8 @@
-export class RentalProperty {
+import { Collection } from "fireorm";
+
+@Collection()
+export default class RentalProperty {
+  id: string;
   Id?: number;
   MemberId?: number;
   OldDbObjectId?: number;

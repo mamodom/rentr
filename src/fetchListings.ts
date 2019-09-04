@@ -1,6 +1,6 @@
 import axios from "axios";
 import { PaginatedReponse } from "./PaginatedResponse";
-import { RentalProperty } from "./RentalProperty";
+import RentalProperty from "./RentalProperty";
 
 export default async () => {
   const filter = {
