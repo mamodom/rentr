@@ -1,10 +1,11 @@
 import IMarker from "./IMarker";
 import IRentalProperty from "./IRentalProperty";
 import { Collection, IEntity } from "fireorm";
+import IPropertyDetails from "./IPropertyDetails";
 
 @Collection()
 export default class RentalProperty
-  implements IRentalProperty, IMarker, IEntity {
+  implements IRentalProperty, IMarker, IEntity, IPropertyDetails {
   id: string;
   RentalObjectId?: number;
   Latitude?: number;
@@ -33,4 +34,11 @@ export default class RentalProperty
   Url?: string;
   ImageUrl?: string;
   OtherSpace?: number;
+  propertyType?: string;
+  numberOfBedrooms?: string;
+  numberOfBathrooms?: string;
+  deposit?: string;
+  rentalPeriod?: string;
+  floor?: string;
+  additional?: { [key: string]: string };
 }

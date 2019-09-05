@@ -1,4 +1,4 @@
-export interface PaginatedReponse<T> {
+export interface IPaginatedResponse<T> {
   CurrentPage: number;
   TotalPages: number;
   TotalItems: number;

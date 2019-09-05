@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PaginatedReponse } from "./PaginatedResponse";
+import { IPaginatedResponse } from "./IPaginatedResponse";
 import IRentalProperty from "./IRentalProperty";
 
 export default async () => {
@@ -9,7 +9,7 @@ export default async () => {
     Page: 1,
     AllObjects: true
   };
-  const apiReponse = await axios.post<PaginatedReponse<IRentalProperty>>(
+  const apiReponse = await axios.post<IPaginatedResponse<IRentalProperty>>(
     "https://www.residensportalen.com/umbraco/api/objectsapi/objects",
     filter
   );

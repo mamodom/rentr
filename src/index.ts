@@ -2,6 +2,7 @@ import fireorm from "./storage";
 import fetchListings from "./fetchListings";
 import RentalProperty from "./RentalProperty";
 import fetchMarkers from "./fetchMarkers";
+import { fetchDetails } from "./fetchDetails";
 
 const updateRentalProperties = async () => {
   const rentalRepository = fireorm.GetRepository(RentalProperty);
@@ -46,4 +47,34 @@ const updateRentalPropertiesMarkers = async () => {
   return "done";
 };
 
-export { updateRentalProperties, updateRentalPropertiesMarkers };
+const updateRentalPropertyDetails = async (
+  firestoreId: string,
+  url?: string
+) => {
+  if (!url) {
+    console.error(`Document ${firestoreId} has no Url`);
+    return;
+  }
+  const rentalRepository = fireorm.GetRepository(RentalProperty);
+  const details = await fetchDetails(url);
+
+  await rentalRepository.update({ id: firestoreId, ...details });
+  return JSON.stringify(details, null, 4);
+};
+
+const updateAllRentalPropertyDetails = async () => {
+  const rentalRepository = fireorm.GetRepository(RentalProperty);
+
+  const existing = await rentalRepository.find();
+
+  existing
+    .filter(p => !p.additional)
+    .forEach(async ({ id, Url }) => await updateRentalPropertyDetails(id, Url));
+};
+
+export {
+  updateRentalProperties,
+  updateRentalPropertiesMarkers,
+  updateRentalPropertyDetails,
+  updateAllRentalPropertyDetails
+};
