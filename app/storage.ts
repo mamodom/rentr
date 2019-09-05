@@ -14,11 +14,3 @@ firebase.initializeApp({
 const db = firebase.firestore();
 
 export default db;
-
-db.collection("RentalProperty")
-  .get()
-  .then(querySnapshot => {
-    querySnapshot.forEach(doc => {
-      console.log(`${doc.id} => ${doc.data()}`);
-    });
-  });
