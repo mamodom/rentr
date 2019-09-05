@@ -1,40 +1,9 @@
 {
-  "name": "rentr",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "axios": "^0.19.0",
-    "cheerio": "^1.0.0-rc.3",
-    "dotenv": "^8.1.0",
-    "firebase-admin": "^8.4.0",
-    "firebase-functions": "^3.2.0",
-    "fireorm": "^0.6.5",
-    "lodash.camelcase": "^4.3.0",
-    "reflect-metadata": "^0.1.13"
-  },
   "devDependencies": {
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-typescript": "^7.3.3",
-    "@types/cheerio": "^0.22.13",
-    "@types/dotenv": "^6.1.1",
-    "@types/jest": "^24.0.18",
-    "@types/lodash.camelcase": "^4.3.6",
-    "@typescript-eslint/eslint-plugin": "^2.1.0",
-    "@typescript-eslint/parser": "^2.1.0",
-    "eslint": "^6.3.0",
-    "eslint-config-prettier": "^6.2.0",
-    "eslint-plugin-jest": "^22.16.0",
-    "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.6.2"
+    "lerna": "^3.16.4"
   },
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "tsc": "lerna run tsc"
   },
-  "author": "mamodom <mamodom@gmail.com>",
-  "license": "ISC"
+  "name": "rentr"
 }

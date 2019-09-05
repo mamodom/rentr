@@ -1,0 +1,28 @@
+{
+  "name": "models",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "Maximo Dominguez <mamodom@gmail.com>",
+  "homepage": "https://github.com/mamodom/rentr#readme",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mamodom/rentr.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "tsc": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/mamodom/rentr/issues"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^2.2.9",
+    "fireorm": "^0.7.0",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "typescript": "^3.6.2"
+  }
+}

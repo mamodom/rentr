@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IPaginatedResponse } from "./IPaginatedResponse";
-import IRentalProperty from "./IRentalProperty";
+import { IRentalProperty } from "models";
 
 export default async () => {
   const filter = {

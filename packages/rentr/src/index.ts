@@ -1,6 +1,7 @@
 import fireorm from "./storage";
+import { RentalProperty } from "models";
+
 import fetchListings from "./fetchListings";
-import RentalProperty from "./RentalProperty";
 import fetchMarkers from "./fetchMarkers";
 import { fetchDetails } from "./fetchDetails";
 

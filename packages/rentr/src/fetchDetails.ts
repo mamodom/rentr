@@ -1,7 +1,7 @@
 import axios from "axios";
 import { load } from "cheerio";
 import { camelCase } from "lodash";
-import IPropertyDetails from "./IPropertyDetails";
+import { IPropertyDetails } from "models";
 
 function* values(node: CheerioElement): IterableIterator<string> {
   for (const t of node.children) {

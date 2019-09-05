@@ -1,5 +1,5 @@
 import * as firebaseFunctions from "firebase-functions";
-import IRentalProperty from "./IRentalProperty";
+import { IRentalProperty } from "models";
 import { IEntity } from "fireorm";
 import { updateRentalPropertyDetails } from ".";
 

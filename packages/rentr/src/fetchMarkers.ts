@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import IMarker from "./IMarker";
+import { IMarker } from "models";
 
 const fetchMarkers = async () => {
   const filter = {
