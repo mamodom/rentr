@@ -41,4 +41,5 @@ export default class RentalProperty
   rentalPeriod?: string;
   floor?: string;
   additional?: { [key: string]: string };
+  importedAt?: Date;
 }

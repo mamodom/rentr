@@ -17,7 +17,11 @@ const updateRentalProperties = async () => {
       continue;
     }
 
-    await rentalRepository.create({ id: "", ...listing });
+    await rentalRepository.create({
+      id: "",
+      ...listing,
+      importedAt: new Date()
+    });
   }
   return "done";
 };
