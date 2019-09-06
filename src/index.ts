@@ -3,6 +3,9 @@ import fetchListings from "./fetchListings";
 import RentalProperty from "./RentalProperty";
 import fetchMarkers from "./fetchMarkers";
 import { fetchDetails } from "./fetchDetails";
+import IMarker from "./IMarker";
+import fetchDirections from "./fetchDirections";
+import { DirectionsResponse } from "@google/maps";
 
 const updateRentalProperties = async () => {
   const rentalRepository = fireorm.GetRepository(RentalProperty);
@@ -76,9 +79,36 @@ const updateAllRentalPropertyDetails = async () => {
     .forEach(async ({ id, Url }) => await updateRentalPropertyDetails(id, Url));
 };
 
+const updateRentalDirections = async (firestoreId: string, marker: IMarker) => {
+  const rentalRepository = fireorm.GetRepository(RentalProperty);
+
+  const result: {
+    response?: DirectionsResponse;
+    error?: Error;
+  } = await fetchDirections(marker)
+    .then(response => ({ response }))
+    .catch(error => ({ error }));
+
+  if (result.error) {
+    console.error(result.error);
+    return;
+  }
+
+  if (!result.response) {
+    console.error("result.response is no defined");
+    return;
+  }
+
+  await rentalRepository.update({
+    id: firestoreId,
+    directions: result.response.routes
+  });
+};
+
 export {
   updateRentalProperties,
   updateRentalPropertiesMarkers,
   updateRentalPropertyDetails,
-  updateAllRentalPropertyDetails
+  updateAllRentalPropertyDetails,
+  updateRentalDirections
 };
