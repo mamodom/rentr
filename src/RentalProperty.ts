@@ -37,6 +37,7 @@ export default class RentalProperty
   propertyType?: string;
   numberOfBedrooms?: string;
   numberOfBathrooms?: string;
+  numberOfToilets?: string;
   deposit?: string;
   rentalPeriod?: string;
   floor?: string;
