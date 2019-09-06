@@ -18,28 +18,26 @@ export const fetchDetails = async (url: string): Promise<IPropertyDetails> => {
 
   const elements = $(".item-details-list-item");
 
-  const entries = Array.from(elements, node =>
-    Array.from(values(node)).filter(Boolean)
-  ).map(([k, v = true]) => ({ [camelCase(k)]: v }));
+  const props = new Set([
+    "propertyType",
+    "numberOfBedrooms",
+    "numberOfBathrooms",
+    "numberOfToilets",
+    "deposit",
+    "rentalPeriod",
+    "floor",
+    "buildingYearOfHouse",
+    "furnishing"
+  ]);
 
-  const {
-    propertyType = "",
-    numberOfBedrooms = "",
-    numberOfBathrooms = "",
-    deposit = "",
-    rentalPeriod = "",
-    floor = "",
-    numberOfToilets = "",
-    ...additional
-  } = Object.assign({}, ...entries);
-  return {
-    propertyType,
-    numberOfBedrooms,
-    numberOfBathrooms,
-    deposit,
-    rentalPeriod,
-    floor,
-    numberOfToilets,
-    additional
-  };
+  const result = Array.from(elements, node =>
+    Array.from(values(node)).filter(Boolean)
+  ).reduce<IPropertyDetails>((acc, [k, v = "yes"]) => {
+    const key = camelCase(k);
+    const value = isNaN(+v) ? v : +v;
+    if (props.has(key)) return { ...acc, [key]: value };
+    return { ...acc, additional: { ...acc.additional, [key]: value } };
+  }, {});
+
+  return result;
 };

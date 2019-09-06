@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import IMarker from "./IMarker";
 
 const fetchMarkers = async () => {
@@ -35,7 +35,7 @@ const fetchMarkers = async () => {
     AllObjects: true
   };
 
-  const apiResponse: AxiosResponse<IMarker[]> = await axios.post(
+  const apiResponse = await axios.post<IMarker[]>(
     "https://www.residensportalen.com/umbraco/api/objectsapi/markers",
     filter
   );

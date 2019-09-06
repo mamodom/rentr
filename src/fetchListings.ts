@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IPaginatedResponse } from "./IPaginatedResponse";
+import IPaginatedResponse from "./IPaginatedResponse";
 import IRentalProperty from "./IRentalProperty";
 
 export default async () => {

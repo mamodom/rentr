@@ -6,20 +6,23 @@ import IPropertyDetails from "./IPropertyDetails";
 @Collection()
 export default class RentalProperty
   implements IRentalProperty, IMarker, IEntity, IPropertyDetails {
+  numberOfToilets?: number | undefined;
+  buildingYearOfHouse?: number;
+  furnishing?: string;
   id: string;
   RentalObjectId?: number;
   Latitude?: number;
   Longitude?: number;
   Id?: number;
   MemberId?: number;
-  OldDbObjectId?: number;
+
   RentalType?: number;
   State?: number;
   MonthlyFee?: number;
   StreetName?: string;
-  AvailableFrom?: string;
-  AvailableTo?: string;
-  CreateDate?: string;
+  AvailableFrom?: Date;
+  AvailableTo?: Date;
+  CreateDate?: Date;
   LivingSpace?: number;
   NumberOfRooms?: number;
   County?: string;
@@ -35,11 +38,11 @@ export default class RentalProperty
   ImageUrl?: string;
   OtherSpace?: number;
   propertyType?: string;
-  numberOfBedrooms?: string;
-  numberOfBathrooms?: string;
-  deposit?: string;
+  numberOfBedrooms?: number;
+  numberOfBathrooms?: number;
+  deposit?: number;
   rentalPeriod?: string;
-  floor?: string;
+  floor?: number;
   additional?: { [key: string]: string };
   importedAt?: Date;
 }

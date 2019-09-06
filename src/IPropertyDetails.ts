@@ -1,10 +1,12 @@
 export default interface IPropertyDetails {
   propertyType?: string;
-  numberOfBedrooms?: string;
-  numberOfBathrooms?: string;
-  numberOfToilets?: string;
-  deposit?: string;
+  numberOfBedrooms?: number;
+  numberOfBathrooms?: number;
+  numberOfToilets?: number;
+  deposit?: number;
   rentalPeriod?: string;
-  floor?: string;
+  floor?: number;
+  buildingYearOfHouse?: number;
+  furnishing?: string;
   additional?: { [key: string]: string };
 }
