@@ -2,7 +2,7 @@
   "name": "rentr",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/functions.js",
   "dependencies": {
     "@google/maps": "^0.5.5",
     "axios": "^0.19.0",
@@ -28,6 +28,7 @@
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^6.2.0",
     "eslint-plugin-jest": "^22.16.0",
+    "firebase-tools": "^7.3.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "ts-node": "^8.3.0",
@@ -35,8 +36,13 @@
   },
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "deploy": "firebase deploy --only functions",
+    "build": "tsc"
   },
   "author": "mamodom <mamodom@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": "10"
+  }
 }

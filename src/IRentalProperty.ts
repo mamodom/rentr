@@ -1,14 +1,16 @@
 export default interface IRentalProperty {
   Id?: number;
   MemberId?: number;
-  OldDbObjectId?: number;
+  /**
+   * @description {0: "apartment", 1: "house"}
+   */
   RentalType?: number;
   State?: number;
   MonthlyFee?: number;
   StreetName?: string;
-  AvailableFrom?: string;
-  AvailableTo?: string;
-  CreateDate?: string;
+  AvailableFrom?: Date;
+  AvailableTo?: Date;
+  CreateDate?: Date;
   LivingSpace?: number;
   NumberOfRooms?: number;
   County?: string;

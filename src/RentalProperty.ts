@@ -3,24 +3,28 @@ import IRentalProperty from "./IRentalProperty";
 import { Collection, IEntity } from "fireorm";
 import IPropertyDetails from "./IPropertyDetails";
 import { DirectionsRoute } from "@google/maps";
+import ISpecification from "./ISpecification";
+import IPropertyInformation from "./IPropertyInformation";
 
 @Collection()
 export default class RentalProperty
-  implements IRentalProperty, IMarker, IEntity, IPropertyDetails {
-  id: string;
+  implements IRentalProperty, IMarker, IPropertyDetails, IEntity {
+  propertyInformation?: IPropertyInformation;
+  specifikation?: ISpecification;
+  thePropertyAlsoHasAccessTo?: string[];
+  publicTransport?: string;
   RentalObjectId?: number;
   Latitude?: number;
   Longitude?: number;
   Id?: number;
   MemberId?: number;
-  OldDbObjectId?: number;
   RentalType?: number;
   State?: number;
   MonthlyFee?: number;
   StreetName?: string;
-  AvailableFrom?: string;
-  AvailableTo?: string;
-  CreateDate?: string;
+  AvailableFrom?: Date;
+  AvailableTo?: Date;
+  CreateDate?: Date;
   LivingSpace?: number;
   NumberOfRooms?: number;
   County?: string;
@@ -35,13 +39,7 @@ export default class RentalProperty
   Url?: string;
   ImageUrl?: string;
   OtherSpace?: number;
-  propertyType?: string;
-  numberOfBedrooms?: string;
-  numberOfBathrooms?: string;
-  deposit?: string;
-  rentalPeriod?: string;
-  floor?: string;
-  additional?: { [key: string]: string };
+  id: string;
   importedAt?: Date;
   directions?: DirectionsRoute[];
 }
