@@ -2,20 +2,21 @@ import IMarker from "./IMarker";
 import IRentalProperty from "./IRentalProperty";
 import { Collection, IEntity } from "fireorm";
 import IPropertyDetails from "./IPropertyDetails";
+import ISpecification from "./ISpecification";
+import IPropertyInformation from "./IPropertyInformation";
 
 @Collection()
 export default class RentalProperty
-  implements IRentalProperty, IMarker, IEntity, IPropertyDetails {
-  numberOfToilets?: number | undefined;
-  buildingYearOfHouse?: number;
-  furnishing?: string;
-  id: string;
+  implements IRentalProperty, IMarker, IPropertyDetails, IEntity {
+  propertyInformation?: IPropertyInformation;
+  specifikation?: ISpecification;
+  thePropertyAlsoHasAccessTo?: string[];
+  publicTransport?: string;
   RentalObjectId?: number;
   Latitude?: number;
   Longitude?: number;
   Id?: number;
   MemberId?: number;
-
   RentalType?: number;
   State?: number;
   MonthlyFee?: number;
@@ -37,12 +38,6 @@ export default class RentalProperty
   Url?: string;
   ImageUrl?: string;
   OtherSpace?: number;
-  propertyType?: string;
-  numberOfBedrooms?: number;
-  numberOfBathrooms?: number;
-  deposit?: number;
-  rentalPeriod?: string;
-  floor?: number;
-  additional?: { [key: string]: string };
+  id: string;
   importedAt?: Date;
 }

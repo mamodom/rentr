@@ -3,41 +3,52 @@ import { load } from "cheerio";
 import { camelCase } from "lodash";
 import IPropertyDetails from "./IPropertyDetails";
 
-function* values(node: CheerioElement): IterableIterator<string> {
-  for (const t of node.children) {
-    if (t.nodeValue) yield t.nodeValue.trim();
-
-    if (t.children && t.children.length > 0) yield* values(t);
-  }
+function flatten<T>(arr: T[]) {
+  return ([] as T[]).concat(...arr);
 }
-
 export const fetchDetails = async (url: string): Promise<IPropertyDetails> => {
   const response = await axios.get<string>(url);
+  const html = response.data;
 
-  const $ = load(response.data);
+  const $ = load(html, { normalizeWhitespace: true });
 
-  const elements = $(".item-details-list-item");
+  const lists = $(".item-details-list");
 
-  const props = new Set([
-    "propertyType",
-    "numberOfBedrooms",
-    "numberOfBathrooms",
-    "numberOfToilets",
-    "deposit",
-    "rentalPeriod",
-    "floor",
-    "buildingYearOfHouse",
-    "furnishing"
-  ]);
+  const sections = Array.from(lists)
+    .map(node => {
+      const title = $(node)
+        .prev()
+        .text();
+      if (!title.length) return;
 
-  const result = Array.from(elements, node =>
-    Array.from(values(node)).filter(Boolean)
-  ).reduce<IPropertyDetails>((acc, [k, v = "yes"]) => {
-    const key = camelCase(k);
-    const value = isNaN(+v) ? v : +v;
-    if (props.has(key)) return { ...acc, [key]: value };
-    return { ...acc, additional: { ...acc.additional, [key]: value } };
-  }, {});
+      const sectionItems = Array.from($(".item-details-list-item", node), el =>
+        el.children
+          .map(child =>
+            $(child)
+              .text()
+              .trim()
+          )
+          .filter(s => s.length)
+      );
 
-  return result;
+      if (sectionItems.every(v => v.length === 1)) {
+        if (sectionItems.length === 1)
+          return { [camelCase(title)]: sectionItems[0][0] };
+        return { [camelCase(title)]: flatten(sectionItems) };
+      }
+
+      const parsedKeyValues = sectionItems.map(([k, v]) => {
+        if (!/[^0-9|,]/.exec(v))
+          return { [camelCase(k)]: parseInt(v.replace(/,/, "")) };
+
+        return { [camelCase(k)]: v };
+      });
+
+      return {
+        [camelCase(title)]: Object.assign({}, ...parsedKeyValues)
+      };
+    })
+    .filter(Boolean);
+
+  return Object.assign({}, ...sections);
 };

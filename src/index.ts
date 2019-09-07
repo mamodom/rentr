@@ -17,11 +17,12 @@ const updateRentalProperties = async () => {
       continue;
     }
 
-    await rentalRepository.create({
+    const created = await rentalRepository.create({
       id: "",
       ...listing,
       importedAt: new Date()
     });
+    console.info(`created ${created.id}`);
   }
   return "done";
 };
@@ -72,7 +73,7 @@ const updateAllRentalPropertyDetails = async () => {
   const existing = await rentalRepository.find();
 
   existing
-    .filter(p => !p.additional)
+    .filter(p => !p.propertyInformation)
     .forEach(async ({ id, Url }) => await updateRentalPropertyDetails(id, Url));
 };
 
