@@ -1,10 +1,8 @@
+import IPropertyInformation from "./IPropertyInformation";
+import ISpecification from "./ISpecification";
 export default interface IPropertyDetails {
-  propertyType?: string;
-  numberOfBedrooms?: string;
-  numberOfBathrooms?: string;
-  numberOfToilets?: string;
-  deposit?: string;
-  rentalPeriod?: string;
-  floor?: string;
-  additional?: { [key: string]: string };
+  propertyInformation?: IPropertyInformation;
+  specifikation?: ISpecification;
+  thePropertyAlsoHasAccessTo?: string[];
+  publicTransport?: string;
 }
