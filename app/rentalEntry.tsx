@@ -21,7 +21,7 @@ const RentalEntry = (props: RentalProperty) => {
             <div>Area: </div>
             <div> {props.Area}</div>
           </div>
-          <div>
+          {/* <div>
             <div>Number of bedrooms: </div>
             <div> {props.numberOfBedrooms}</div>
           </div>
@@ -32,7 +32,7 @@ const RentalEntry = (props: RentalProperty) => {
           <div>
             <div>Number of toilets: </div>
             <div> {props.numberOfToilets}</div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

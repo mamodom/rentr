@@ -7,14 +7,15 @@ const Rentals = () => {
   const [rentals, setRentals] = useState([] as RentalProperty[]);
   useEffect(() => {
     db.collection("RentalProperties")
+      .orderBy("importedAt", "desc")
       .limit(3)
       .get()
       .then(querySnashot => {
-        const foo: RentalProperty[] = [];
+        const rentals: RentalProperty[] = [];
         querySnashot.forEach(doc => {
-          foo.push(doc.data() as RentalProperty);
+          rentals.push(doc.data() as RentalProperty);
         });
-        setRentals(foo);
+        setRentals(rentals);
       });
   }, []);
 
