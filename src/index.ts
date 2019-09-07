@@ -30,7 +30,7 @@ const updateRentalProperties = async () => {
   return "done";
 };
 
-const updateRentalPropertiesMarkers = async () => {
+async function* updateRentalPropertiesMarkers() {
   const rentalRepository = fireorm.GetRepository(RentalProperty);
   const markers = await fetchMarkers();
 
@@ -51,9 +51,9 @@ const updateRentalPropertiesMarkers = async () => {
       id: document.id,
       ...marker
     });
+    yield { id: document.id, marker };
   }
-  return "done";
-};
+}
 
 const updateRentalPropertyDetails = async (
   firestoreId: string,
