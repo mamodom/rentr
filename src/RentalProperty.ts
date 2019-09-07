@@ -2,6 +2,7 @@ import IMarker from "./IMarker";
 import IRentalProperty from "./IRentalProperty";
 import { Collection, IEntity } from "fireorm";
 import IPropertyDetails from "./IPropertyDetails";
+import { DirectionsRoute } from "@google/maps";
 import ISpecification from "./ISpecification";
 import IPropertyInformation from "./IPropertyInformation";
 
@@ -40,4 +41,5 @@ export default class RentalProperty
   OtherSpace?: number;
   id: string;
   importedAt?: Date;
+  directions?: DirectionsRoute[];
 }
