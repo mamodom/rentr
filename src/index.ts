@@ -6,6 +6,7 @@ import { fetchDetails } from "./fetchDetails";
 import IMarker from "./IMarker";
 import fetchDirections from "./fetchDirections";
 import { DirectionsResponse } from "@google/maps";
+import createDirectionsSummary from "./createDirectionsSummary";
 
 const updateRentalProperties = async () => {
   const rentalRepository = fireorm.GetRepository(RentalProperty);
@@ -100,9 +101,12 @@ const updateRentalDirections = async (firestoreId: string, marker: IMarker) => {
     return;
   }
 
+  const directionsSummary = createDirectionsSummary(result.response.routes[0]);
+
   await rentalRepository.update({
     id: firestoreId,
-    directions: result.response.routes
+    directions: result.response.routes[0],
+    directionsSummary
   });
 };
 

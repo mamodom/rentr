@@ -5,6 +5,7 @@ import IPropertyDetails from "./IPropertyDetails";
 import { DirectionsRoute } from "@google/maps";
 import ISpecification from "./ISpecification";
 import IPropertyInformation from "./IPropertyInformation";
+import { DirectionsSummary } from "./DirectionsSummary";
 
 @Collection()
 export default class RentalProperty
@@ -41,5 +42,6 @@ export default class RentalProperty
   OtherSpace?: number;
   id: string;
   importedAt?: Date;
-  directions?: DirectionsRoute[];
+  directions?: DirectionsRoute;
+  directionsSummary?: DirectionsSummary;
 }
