@@ -41,5 +41,5 @@ export default class RentalProperty
   OtherSpace?: number;
   id: string;
   importedAt?: Date;
-  directions?: DirectionsRoute[];
+  directions?: DirectionsRoute;
 }

@@ -102,7 +102,7 @@ const updateRentalDirections = async (firestoreId: string, marker: IMarker) => {
 
   await rentalRepository.update({
     id: firestoreId,
-    directions: result.response.routes
+    directions: result.response.routes[0]
   });
 };
 
