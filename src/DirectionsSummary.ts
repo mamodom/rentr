@@ -5,4 +5,5 @@ export interface DirectionsSummary {
   distance: Distance;
   duration: Duration;
   steps: StepSummary[];
+  modes: { [k: string]: boolean };
 }

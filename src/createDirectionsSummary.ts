@@ -1,7 +1,8 @@
 import { DirectionsRoute, DirectionsStep } from "@google/maps";
 import { DirectionsSummary } from "./DirectionsSummary";
+import { StepSummary } from "./StepSummary";
 
-const createStepSummary = (step: DirectionsStep) => {
+const createStepSummary = (step: DirectionsStep): StepSummary => {
   let transitDetails = {};
 
   if (step.transit_details) {
@@ -10,9 +11,9 @@ const createStepSummary = (step: DirectionsStep) => {
     transitDetails = {
       vehicle: td.line.vehicle.name,
       icon: td.line.vehicle.icon,
-      localIcon: td.line.vehicle.local_icon || null,
-      color: td.line.color || null,
-      name: td.line.short_name || null,
+      localIcon: td.line.vehicle.local_icon,
+      color: td.line.color,
+      name: td.line.short_name,
       to: td.arrival_stop.name,
       from: td.departure_stop.name,
       numberOfStops: td.num_stops
@@ -24,7 +25,10 @@ const createStepSummary = (step: DirectionsStep) => {
     duration: step.duration,
     distance: step.distance,
     description: step.html_instructions,
-    ...transitDetails
+    ...Object.entries(transitDetails).reduce(
+      (acc, [k, v]) => (v === undefined ? acc : { ...acc, [k]: v }),
+      {}
+    )
   };
 };
 
@@ -38,10 +42,17 @@ const createDirectionsSummary = (
   // see: https://developers.google.com/maps/documentation/directions/intro#Legs
   const leg = directions.legs[0];
 
+  const steps = leg.steps.map(createStepSummary);
+
+  const modes = steps
+    .map(a => a.vehicle || a.travelMode)
+    .reduce((acc, cur) => ({ ...acc, [cur]: true }), {});
+
   const response = {
     distance: leg.distance,
     duration: leg.duration,
-    steps: leg.steps.map(createStepSummary)
+    steps,
+    modes
   };
   return response;
 };
