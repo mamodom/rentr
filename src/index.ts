@@ -28,18 +28,19 @@ const updateRentalProperties = async () => {
       id: "",
       ...listing,
       importedAt: new Date(),
+      available: true,
     } as IEntity);
   }
 
   existing
     .filter(entry => existingIds.has(entry.Id))
     .forEach(entry => {
-      batch.update({ ...entry, unavailable: true } as IEntity);
+      batch.update({ ...entry, available: false } as IEntity);
     });
 
   const result = await batch.commit();
 
-  console.log(JSON.stringify(result, null, 2));
+  console.log(result);
 
   return "done";
 };

@@ -44,5 +44,5 @@ export default class RentalProperty
   importedAt?: Date;
   directions?: DirectionsRoute;
   directionsSummary?: DirectionsSummary;
-  unavailable?: boolean;
+  available?: boolean;
 }
