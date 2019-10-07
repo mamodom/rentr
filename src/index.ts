@@ -7,6 +7,7 @@ import IMarker from "./IMarker";
 import fetchDirections from "./fetchDirections";
 import { DirectionsResponse } from "@google/maps";
 import createDirectionsSummary from "./createDirectionsSummary";
+import { IEntity } from "fireorm";
 
 const updateRentalProperties = async () => {
   const rentalRepository = fireorm.GetRepository(RentalProperty);
@@ -16,18 +17,30 @@ const updateRentalProperties = async () => {
 
   const existingIds = new Set(existing.map(r => r.Id));
 
+  const batch = rentalRepository.createBatch();
+
   for (const listing of listings) {
-    if (existingIds.has(listing.Id)) {
+    if (existingIds.delete(listing.Id)) {
       continue;
     }
 
-    const created = await rentalRepository.create({
+    batch.create({
       id: "",
       ...listing,
-      importedAt: new Date()
-    });
-    console.info(`created ${created.id}`);
+      importedAt: new Date(),
+    } as IEntity);
   }
+
+  existing
+    .filter(entry => existingIds.has(entry.Id))
+    .forEach(entry => {
+      batch.update({ ...entry, unavailable: true } as IEntity);
+    });
+
+  const result = await batch.commit();
+
+  console.log(JSON.stringify(result, null, 2));
+
   return "done";
 };
 
@@ -50,7 +63,7 @@ async function* updateRentalPropertiesMarkers() {
 
     await rentalRepository.update({
       id: document.id,
-      ...marker
+      ...marker,
     });
     yield { id: document.id, marker };
   }
@@ -106,7 +119,7 @@ const updateRentalDirections = async (firestoreId: string, marker: IMarker) => {
   await rentalRepository.update({
     id: firestoreId,
     directions: result.response.routes[0],
-    directionsSummary
+    directionsSummary,
   });
 };
 
@@ -115,5 +128,5 @@ export {
   updateRentalPropertiesMarkers,
   updateRentalPropertyDetails,
   updateAllRentalPropertyDetails,
-  updateRentalDirections
+  updateRentalDirections,
 };
