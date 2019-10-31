@@ -21,6 +21,7 @@ module.exports = {
   ],
   rules: {
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/interface-name-prefix": 0
+    "@typescript-eslint/interface-name-prefix": 0,
+    "react/prop-types": 0
   }
 };

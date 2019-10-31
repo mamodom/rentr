@@ -7,8 +7,12 @@ const Rentals = () => {
   const [rentals, setRentals] = useState([] as RentalProperty[]);
   useEffect(() => {
     db.collection("RentalProperties")
-      .orderBy("importedAt", "desc")
-      .limit(3)
+      .where("available", "==", true)
+      .where("specifikation.numberOfBedrooms", "==", 2)
+      // .where("MonthlyFee", "<", 21000)
+      // .orderBy("MonthlyFee")
+      .orderBy("directionsSummary.duration.value", "asc")
+      // .where("AvailableFrom", "<", new Date(2019, 11, 10))
       .get()
       .then(querySnashot => {
         const rentals: RentalProperty[] = [];
